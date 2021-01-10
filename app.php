@@ -14,13 +14,12 @@ $last_page = (int) explode('=', $last_page)[1];
 $article_urls = [];
 for ($i = 1; $i <= $last_page; $i++) {
     $page = $client->request('GET', BASE_URL . 'legfrissebb?oldal=' . $i);
-    $page->filter('.article_title')->each(function (Crawler $node) use ($client, &$article_urls) {
+    $page->filter('.article .article_img .article_title')->each(function (Crawler $node) use ($client, &$article_urls) {
         $article_url = BASE_URL . $node->attr('href');
         array_push($article_urls, $article_url);
     });
 }
 
-$article_urls = array_values(array_unique($article_urls));
 foreach ($article_urls as $url) {
 
 }
